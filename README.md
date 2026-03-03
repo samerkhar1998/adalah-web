@@ -1,17 +1,40 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Directus Integration
+
+Content is fetched from a [Directus](https://directus.io) instance. Set the following variables in `.env.local`:
+
+```
+NEXT_PUBLIC_DIRECTUS_URL=http://localhost:8055
+DIRECTUS_TOKEN=                        # leave empty for public collections
+```
+
+### URLs to test
+
+| Route | Description |
+|---|---|
+| `http://localhost:3000/en/news` | English news list |
+| `http://localhost:3000/ar/news` | Arabic news list |
+| `http://localhost:3000/en/news/test-news` | English detail for slug `test-news` |
+| `http://localhost:3000/ar/news/test-news` | Arabic detail for slug `test-news` |
+
+Pages revalidate every 60 seconds (ISR).
+
+### Key files
+
+| File | Purpose |
+|---|---|
+| `src/lib/directus.ts` | Base fetch helper (auth, error handling, ISR) |
+| `src/lib/content.ts` | Typed query helpers for `content_items` |
+| `app/[lang]/news/page.tsx` | News list server component |
+| `app/[lang]/news/[slug]/page.tsx` | News detail server component |
+
 ## Getting Started
 
 First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
